@@ -1,4 +1,5 @@
 import mongoose, {Schema} from "mongoose";
+import User from "./user.model.js"
 
 const propertySchema = new mongoose.Schema(
     {
@@ -20,11 +21,11 @@ const propertySchema = new mongoose.Schema(
             required : true
         },
         image : {
-            type : String // Cloudinary or multer
+            type : String 
         },
         ownerId : {
             type : mongoose.Schema.Types.ObjectId,
-            ref : User,
+            ref : "User",
             required : true
         }
     },
