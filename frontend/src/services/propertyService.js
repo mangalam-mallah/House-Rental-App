@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api/properties';
+const API = '/api/property';
 
 export const getAllProperties = async () => {
   const res = await fetch(API);

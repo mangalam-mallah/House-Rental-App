@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000/api/users';
+const API = '/api/users';
 
 export const loginUser = async (credentials) => {
   const res = await fetch(`${API}/login`, {
@@ -10,7 +10,7 @@ export const loginUser = async (credentials) => {
 };
 
 export const registerUser = async (data) => {
-  const res = await fetch(`${API}/register`, {
+  const res = await fetch(`${API}/signup`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
