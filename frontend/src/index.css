@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*! tailwindcss v4.1.3 | MIT License | https://tailwindcss.com */
 @layer properties;
 .flex {
@@ -51,3 +52,6 @@
     }
   }
 }
+=======
+@import "tailwindcss";
+>>>>>>> main

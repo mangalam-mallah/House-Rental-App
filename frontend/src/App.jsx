@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -31,6 +32,19 @@ function App() {
       </Router>
     </AuthProvider>
   );
+=======
+import { useState } from 'react'
+import './index.css'
+import { useEffect } from 'react'
+
+function App() {
+
+  return (
+    <div className='text-red-600 text-7xl'>
+      Hi
+    </div>
+  )
+>>>>>>> main
 }
 
 export default App;
