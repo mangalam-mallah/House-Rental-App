@@ -1,15 +1,13 @@
-<<<<<<< HEAD
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import DashboardPage from './pages/DashboardPage';
-import PropertyDetailsPage from './pages/PropertyDetailsPage';
-import ProtectedRoute from './components/ProtectedRoute';
-import { AuthProvider } from './context/AuthContext';
-
+import Navbar from './components/Navbar.jsx'
+import HomePage from './pages/HomePage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import RegisterPage from './pages/RegisterPage.jsx';
+import DashboardPage from './pages/DashboardPage.jsx';
+import PropertyDetailsPage from './pages/PropertyDetailsPage.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
 function App() {
   return (
     <AuthProvider>
@@ -32,19 +30,7 @@ function App() {
       </Router>
     </AuthProvider>
   );
-=======
-import { useState } from 'react'
-import './index.css'
-import { useEffect } from 'react'
 
-function App() {
-
-  return (
-    <div className='text-red-600 text-7xl'>
-      Hi
-    </div>
-  )
->>>>>>> main
 }
 
 export default App;
