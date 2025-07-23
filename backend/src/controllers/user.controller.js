@@ -1,17 +1,19 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 
+// Optionally import JWT (uncomment if using token-based auth)
+// import jwt from "jsonwebtoken";
+
 const signup = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
+
     if (!name || !email || !password || !role) {
-      return res.status(400).json({ message: "Allfields are required" });
+      return res.status(400).json({ message: "All fields are required" });
     }
 
     if (password.length < 6) {
-      return res
-        .status(400)
-        .json({ message: "Password must be atleast 6 character" });
+      return res.status(400).json({ message: "Password must be at least 6 characters" });
     }
 
     if (!["renter", "owner"].includes(role)) {
@@ -44,7 +46,7 @@ const signup = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log("Error in signup controller: ", error.message);
+    console.error("Error in signup controller:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -52,10 +54,9 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ message: "Email and password are required" });
+      return res.status(400).json({ message: "Email and password are required" });
     }
 
     const user = await User.findOne({ email });
@@ -69,13 +70,17 @@ const login = async (req, res) => {
     }
 
     if (user.role === "owner" && !user.isApproved) {
-      return res
-        .status(403)
-        .json({ message: "Account not yet approved by admin" });
+      return res.status(403).json({ message: "Account not yet approved by admin" });
     }
 
-    res.status(201).json({
+    // Optional: Generate token
+    // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    //   expiresIn: "1d",
+    // });
+
+    res.status(200).json({
       message: "Login successful",
+      // token, // send if using JWT
       user: {
         _id: user._id,
         name: user.name,
@@ -85,14 +90,15 @@ const login = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log("Error in login controller", error.message);
-    res.status(500).json({ message: "Interval Server Error" });
+    console.error("Error in login controller:", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
 const getUserProfile = async (req, res) => {
   try {
     const userId = req.params.id;
+
     const user = await User.findById(userId).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -100,7 +106,7 @@ const getUserProfile = async (req, res) => {
 
     res.status(200).json(user);
   } catch (error) {
-    console.log("Error in getUserProfile controller", error.message);
+    console.error("Error in getUserProfile controller:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -119,8 +125,9 @@ const updateUserProfile = async (req, res) => {
     if (email) user.email = email;
 
     const updatedUser = await user.save();
+
     res.status(200).json({
-      message: "Profile changed successfully",
+      message: "Profile updated successfully",
       user: {
         _id: updatedUser._id,
         name: updatedUser.name,
@@ -130,8 +137,8 @@ const updateUserProfile = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log("Error in updateUserProfile controller", error.message);
-    res.status(500).json({message : "Internal Server Error"});
+    console.error("Error in updateUserProfile controller:", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 

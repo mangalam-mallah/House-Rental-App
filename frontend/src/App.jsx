@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar.jsx'
+import Navbar from './components/Navbar.jsx';
 import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
@@ -8,6 +8,8 @@ import DashboardPage from './pages/DashboardPage.jsx';
 import PropertyDetailsPage from './pages/PropertyDetailsPage.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
+import PropertyListPage from './pages/PropertyListing.jsx'; // ✅ New import
+
 function App() {
   return (
     <AuthProvider>
@@ -26,11 +28,11 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/properties" element={<PropertyListPage />} /> {/* ✅ New Route */}
         </Routes>
       </Router>
     </AuthProvider>
   );
-
 }
 
 export default App;
