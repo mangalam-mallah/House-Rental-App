@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { loginUser } from '../services/userService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -13,10 +13,19 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await loginUser({ email, password });
-      login(user);
-      navigate('/dashboard');
+      const response = await loginUser({ email, password });
+
+      // Ensure response includes a valid user object
+      const { user } = response;
+
+      if (!user || !user.email) {
+        throw new Error('Invalid user data');
+      }
+
+      login(user); // Save user in AuthContext + localStorage
+      navigate('/'); // Redirect after login
     } catch (err) {
+      console.error(err);
       setError('Invalid email or password');
     }
   };
@@ -63,15 +72,15 @@ const LoginPage = () => {
             type="submit"
             className="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-semibold rounded-md shadow-md transition duration-300"
           >
-            LogIn
+            Log In
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Don’t have an account?{' '}
-          <a href="/register" className="text-pink-600 font-semibold hover:underline">
+          <Link to="/register" className="text-pink-600 font-semibold hover:underline">
             Register
-          </a>
+          </Link>
         </p>
       </div>
     </div>

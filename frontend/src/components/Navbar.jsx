@@ -11,13 +11,17 @@ const Navbar = () => {
       </div>
 
       <div className="flex gap-4 items-center">
+        <Link to="/properties" className="text-sm text-blue-600 hover:underline">
+          Browse Properties
+        </Link>
+
         {user ? (
           <>
             <Link
               to="/dashboard"
               className="text-gray-700 hover:text-green-700 transition font-medium"
             >
-              Dashboard
+              Profile
             </Link>
             <button
               onClick={logout}

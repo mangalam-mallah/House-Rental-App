@@ -8,4 +8,5 @@ router.get("/property/:propertyId", auth("owner"), getInquiryForProperty)
 router.put("/approve/:id", auth("owner"), approveInquiry)
 router.put("/reject/:id", auth("owner"), rejectInquiry)
 
+
 export default router
