@@ -1,12 +1,12 @@
 import express from 'express'
 import { createInquiry, getInquiryForProperty, approveInquiry, rejectInquiry } from '../controllers/inquiry.controller.js'
-import auth from '../middleware/auth.middleware.js'
+import authenticate from '../middleware/authenticate.js'
 
 const router = express.Router()
-router.post('/', auth("renter"),createInquiry)
-router.get("/property/:propertyId", auth("owner"), getInquiryForProperty)
-router.put("/approve/:id", auth("owner"), approveInquiry)
-router.put("/reject/:id", auth("owner"), rejectInquiry)
+router.post('/', authenticate,createInquiry)
+router.get("/property/:propertyId", authenticate, getInquiryForProperty)
+router.put("/approve/:id", authenticate, approveInquiry)
+router.put("/reject/:id", authenticate, rejectInquiry)
 
 
 export default router

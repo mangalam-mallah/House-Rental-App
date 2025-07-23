@@ -1,12 +1,14 @@
 import express from 'express'
-import { login, signup, getUserProfile, updateUserProfile } from '../controllers/user.controller.js';
+import { login, signup, getUserProfile, updateUserProfile, refreshAccessToken } from '../controllers/user.controller.js';
+import authenticate from '../middleware/authenticate.js';
 
 const router = express.Router();
 router.post("/signup", signup)
 router.post("/login", login)
+router.post('/refresh-token', refreshAccessToken);
 
-router.get("/:id", getUserProfile)
+router.get("/:id",authenticate, getUserProfile)
 
-router.put("/:id", updateUserProfile)
+router.put("/:id", authenticate, updateUserProfile)
 
 export default router

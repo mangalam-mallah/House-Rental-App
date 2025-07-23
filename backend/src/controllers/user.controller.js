@@ -1,8 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
-
-// Optionally import JWT (uncomment if using token-based auth)
 // import jwt from "jsonwebtoken";
+import { generateAccessToken, generateRefreshToken, verifyRefreshToken, verifyAccessToken } from "../utils/jwt.js";
 
 const signup = async (req, res) => {
   try {
@@ -73,14 +72,13 @@ const login = async (req, res) => {
       return res.status(403).json({ message: "Account not yet approved by admin" });
     }
 
-    // Optional: Generate token
-    // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    //   expiresIn: "1d",
-    // });
+    const accessToken = generateAccessToken(user)
+    const refreshToken = generateRefreshToken(user)
 
     res.status(200).json({
       message: "Login successful",
-      // token, // send if using JWT
+      accessToken,
+      refreshToken,
       user: {
         _id: user._id,
         name: user.name,
@@ -142,4 +140,31 @@ const updateUserProfile = async (req, res) => {
   }
 };
 
-export { signup, login, getUserProfile, updateUserProfile };
+const refreshAccessToken = async (req, res) => {
+  try {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+      return res.status(400).json({ message: "Refresh token is required" });
+    }
+
+    const decoded = verifyRefreshToken(refreshToken);
+
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return res.status(401).json({ message: "Invalid refresh token" });
+    }
+
+    const newAccessToken = generateAccessToken(user);
+
+    res.status(200).json({
+      message: "New access token generated",
+      accessToken: newAccessToken,
+    });
+  } catch (err) {
+    console.error("Error in refreshAccessToken:", err.message);
+    res.status(401).json({ message: "Invalid or expired refresh token" });
+  }
+};
+
+export { signup, login, getUserProfile, updateUserProfile, refreshAccessToken };

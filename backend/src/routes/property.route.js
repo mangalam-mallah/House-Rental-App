@@ -1,16 +1,19 @@
 import express from 'express'
-import {createProperty, getAllProperties, getPropertyById, updateProperty, deleteProperty} from '../controllers/property.controller.js'
+import {createProperty, getAllProperties, getPropertyById, updateProperty, deleteProperty, getMyProperties} from '../controllers/property.controller.js' 
 import upload from '../middleware/multer.middleware.js'
-import checkAuth from '../middleware/mockAuth.middleware.js'
+import authenticate from '../middleware/authenticate.js'
+
 
 const router = express.Router()
-router.get("/", getAllProperties);
-router.get("/:id", getPropertyById)
 
-router.post("/",checkAuth, upload.single('image'), createProperty) //Need to give id of owner manually 
-router.put("/:id", checkAuth, upload.single('image'), updateProperty)
+router.get("/", getAllProperties); 
+router.get("/my-properties", authenticate, getMyProperties);
+router.get("/:id", getPropertyById);                         
 
-router.delete("/:id",deleteProperty)
+router.post("/", authenticate, upload.single('image'), createProperty);
+router.put("/:id", authenticate, upload.single('image'), updateProperty);
+router.delete("/:id", authenticate, deleteProperty);
+
 
 
 export default router;
