@@ -10,21 +10,33 @@ const RegisterPage = () => {
     role: "renter",
   });
 
-  const navigate = useNavigate();
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false); // ✅ Success state
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await registerUser(userData);
-      navigate("/login");
+      setSuccess(true); // Show success popup
+      setTimeout(() => {
+        setSuccess(false);
+        navigate("/login");
+      }, 2000); // Navigate after 2 seconds
     } catch (err) {
       setError("Registration failed. Try again.");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 px-4 relative">
+      {/* ✅ Success Popup */}
+      {success && (
+        <div className="absolute top-5 right-5 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-bounce z-50">
+          ✅ Registered Successfully!
+        </div>
+      )}
+
       <div className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md border border-purple-300">
         <h2 className="text-4xl font-extrabold mb-6 text-center text-purple-600 tracking-tight">
           Create Your Account 📝
