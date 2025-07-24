@@ -11,9 +11,9 @@ const Navbar = () => {
       </div>
 
       <div className="flex gap-4 items-center">
-        <Link to="/properties" className="text-sm text-blue-600 hover:underline">
+        {/* <Link to="/properties" className="text-sm text-blue-600 hover:underline">
           Browse Properties
-        </Link>
+        </Link> */}
 
         {user ? (
           <>

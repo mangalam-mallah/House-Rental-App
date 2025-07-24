@@ -19,6 +19,7 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use(
   (res) => res,
   (err) => {
+    console.error("Axios response error:", err.response || err.message);
     if (err.response?.status === 401) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");

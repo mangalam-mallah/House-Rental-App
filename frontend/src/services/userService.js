@@ -1,25 +1,24 @@
 // services/userService.js
-import axios from "axios";
+import axiosInstance from "./axiosInstance";
 
-// Create axios instance with base URL
-const API = axios.create({
-  baseURL: "/api/users",
-});
 
-// Store token in localStorage and return response data
 export const loginUser = async (credentials) => {
-  const res = await API.post("/login", credentials);
+  const res = await axiosInstance.post("/users/login", credentials);
 
-  // Save token and user to localStorage
-  localStorage.setItem("token", res.data.token);
-  localStorage.setItem("user", JSON.stringify(res.data.user));
+  const { accessToken, user } = res.data;
+
+  if (accessToken && user) {
+    // ✅ Store accessToken under "token"
+    localStorage.setItem("token", accessToken);
+    localStorage.setItem("user", JSON.stringify(user));
+  } else {
+    console.warn("Missing accessToken or user in response");
+  }
 
   return res.data;
 };
 
 export const registerUser = async (data) => {
-  const res = await API.post("/signup", data);
-
-  // Registration doesn't log in user, so don't store token yet
+  const res = await axiosInstance.post("/users/signup", data);
   return res.data;
 };

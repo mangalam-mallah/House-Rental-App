@@ -22,6 +22,12 @@ const propertySchema = new mongoose.Schema(
         image : {
             type : String 
         },
+        bedroom : {
+            type : String
+        },
+        bathroom : {
+            type : String
+        },
         ownerId : {
             type : mongoose.Schema.Types.ObjectId,
             ref : "User",

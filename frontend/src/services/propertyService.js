@@ -1,5 +1,3 @@
-// src/services/propertyService.js
-
 import axiosInstance from "./axiosInstance";
 
 // ✅ Public: Get all properties
@@ -59,6 +57,11 @@ export const updateProperty = async (id, formData) => {
     console.error("Error updating property:", err.message);
     throw err;
   }
+};
+
+export const fetchOwnerProperties = async () => {
+  const res = await axiosInstance.get("/property/my-properties");
+  return res.data; // array of properties
 };
 
 // ✅ Private: Delete property

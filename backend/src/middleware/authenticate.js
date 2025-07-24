@@ -12,6 +12,7 @@ const authenticate = (req, res, next) => {
 
   try {
     const decoded = verifyAccessToken(token);
+    // console.log("Decoded JWT:", decoded);
     req.user = decoded;
     next();
   } catch (err) {

@@ -35,7 +35,7 @@ const PropertyDetailsPage = () => {
 
         <div className="p-6 space-y-4">
           <h2 className="text-3xl font-bold text-indigo-700">
-            {property.name || 'Unnamed Property'}
+            {property.title || 'Unnamed Property'}
           </h2>
           <p className="text-gray-600 text-lg">
             {property.description || 'No description available.'}
@@ -48,15 +48,15 @@ const PropertyDetailsPage = () => {
             </p>
             <p>
               <span className="font-semibold">💰 Price:</span> ₹
-              {property.price || 'Not specified'}
+              {property.rent || 'Not specified'}
             </p>
             <p>
               <span className="font-semibold">🛏️ Bedrooms:</span>{' '}
-              {property.bedrooms || 'N/A'}
+              {property.bedroom || 'N/A'}
             </p>
             <p>
               <span className="font-semibold">🛁 Bathrooms:</span>{' '}
-              {property.bathrooms || 'N/A'}
+              {property.bathroom || 'N/A'}
             </p>
           </div>
 

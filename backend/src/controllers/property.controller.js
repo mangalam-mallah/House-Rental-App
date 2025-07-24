@@ -8,7 +8,7 @@
           .status(403)
           .json({ message: "Forbidden: Only owners can create properties." });
       }
-      const { title, location, rent, description, image } = req.body;
+      const { title, location, rent, description, image, bedroom, bathroom } = req.body;
 
       if (!title || !location || !rent || !description) {
         return res
@@ -25,7 +25,7 @@
         imageURL = result.secure_url;
       }
 
-      const ownerId = req.user._id
+      const ownerId = req.user.id
 
       const property = await Property.create({
         title,
@@ -34,6 +34,8 @@
         description,
         image: imageURL,
         ownerId,
+        bedroom,
+        bathroom
       });
 
       res.status(201).json({
@@ -41,7 +43,7 @@
         property,
       });
     } catch (err) {
-      console.log("Erro in create Property controller: ", err);
+      console.log("Error in create Property controller: ", err);
       res.status(500).json({ message: "Internal Server Error" });
     }
   };
@@ -84,17 +86,19 @@
         return res.status(404).json({ message: "Property not found" });
       }
 
-      if (property.ownerId.toString() !== req.user._id.toString()) {
+      if (property.ownerId.toString() !== req.user.id.toString()) {
         return res
           .status(403)
           .json({ message: "Forbidden: You do not own this property." });
       }
 
-      const { title, location, rent, description } = req.body;
+      const { title, location, rent, description, bedroom, bathroom } = req.body;
       if (title) property.title = title;
       if (location) property.location = location;
       if (rent) property.rent = rent;
       if (description) property.description = description;
+      if (bedroom) property.bedroom = bedroom;
+      if (bathroom) property.bathroom = bathroom;
 
       if (req.file) {
         const b64 = Buffer.from(req.file.buffer).toString("base64");
