@@ -1,4 +1,4 @@
-import axiosInstance from "./axiosInstance";
+import axiosInstance from './axiosInstance';
 
 // ✅ Public: Get all properties
 export const getAllProperties = async () => {
@@ -22,18 +22,18 @@ export const getPropertyById = async (id) => {
   }
 };
 
-// ✅ Private: Get my properties (requires JWT)
-export const getMyProperties = async () => {
+// ✅ Private: Get properties added by the logged-in owner
+export const fetchOwnerProperties = async () => {
   try {
     const res = await axiosInstance.get("/property/my-properties");
     return res.data;
   } catch (err) {
-    console.error("Error fetching my properties:", err.message);
+    console.error("Error fetching owner properties:", err.message);
     throw err;
   }
 };
 
-// ✅ Private: Create property (multipart/form-data)
+// ✅ Private: Create new property (multipart/form-data)
 export const createProperty = async (formData) => {
   try {
     const res = await axiosInstance.post("/property", formData, {
@@ -46,7 +46,7 @@ export const createProperty = async (formData) => {
   }
 };
 
-// ✅ Private: Update property
+// ✅ Private: Update property (multipart/form-data)
 export const updateProperty = async (id, formData) => {
   try {
     const res = await axiosInstance.put(`/property/${id}`, formData, {
@@ -59,12 +59,7 @@ export const updateProperty = async (id, formData) => {
   }
 };
 
-export const fetchOwnerProperties = async () => {
-  const res = await axiosInstance.get("/property/my-properties");
-  return res.data; // array of properties
-};
-
-// ✅ Private: Delete property
+// ✅ Private: Delete property by ID
 export const deleteProperty = async (id) => {
   try {
     const res = await axiosInstance.delete(`/property/${id}`);
