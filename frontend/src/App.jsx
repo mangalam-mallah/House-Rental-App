@@ -13,10 +13,10 @@ import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
-import PropertyDetailsPage from './pages/PropertyDetailsPage.jsx';
+import PropertyDetailsPage from './pages/PropertyDetailsPage.jsx'; // ✅ using correct name
 import PropertyListPage from './pages/PropertyListing.jsx';
 import AddProperty from './pages/AddProperty.jsx';
-import MyPropertiesPage from './pages/MyPropertiesPage.jsx'; // ✅ Added
+import MyPropertiesPage from './pages/MyPropertiesPage.jsx';
 
 function App() {
   return (
@@ -27,7 +27,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/property/:id" element={<PropertyDetailsPage />} />
+          <Route path="/property/:id" element={<PropertyDetailsPage />} /> {/* ✅ View Property Detail */}
+          <Route path="/properties" element={<PropertyListPage />} />
+          
           <Route
             path="/dashboard"
             element={
@@ -45,14 +47,13 @@ function App() {
             }
           />
           <Route
-            path="/my-properties" // ✅ NEW route
+            path="/my-properties"
             element={
               <ProtectedRoute>
                 <MyPropertiesPage />
               </ProtectedRoute>
             }
           />
-          <Route path="/properties" element={<PropertyListPage />} />
         </Routes>
       </Router>
     </AuthProvider>
