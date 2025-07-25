@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { createProperty } from "../services/propertyService.js";
 
 const AddProperty = () => {
   const [formData, setFormData] = useState({
@@ -37,9 +37,7 @@ const AddProperty = () => {
         data.append("image", formData.image);
       }
 
-      await axios.post("/api/properties", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await createProperty(data)
 
       alert("✅ Property added successfully!");
       navigate("/dashboard");
