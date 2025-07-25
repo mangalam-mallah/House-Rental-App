@@ -1,16 +1,31 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPropertyById } from "../services/propertyService";
+import { toast } from "react-toastify";
 
 const PropertyDetailsPage = () => {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
+  const [inquiryMessage, setInquiryMessage] = useState("");
 
   useEffect(() => {
-    getPropertyById(id).then(setProperty).catch((err) => {
-      console.error('Failed to fetch property:', err);
-    });
+    getPropertyById(id)
+      .then(setProperty)
+      .catch((err) => {
+        console.error("Failed to fetch property:", err);
+      });
   }, [id]);
+
+  const handleSendInquiry = () => {
+    if (!inquiryMessage.trim()) {
+      toast.error("Please enter a message.");
+      return;
+    }
+
+    // Here you can also make an API call to save inquiry
+    toast.success("Inquiry sent successfully!");
+    setInquiryMessage(""); // Clear the textarea
+  };
 
   if (!property) return <p className="text-center mt-10">Loading...</p>;
 
@@ -25,24 +40,43 @@ const PropertyDetailsPage = () => {
       </div>
 
       <div className="p-4 border rounded mt-4">
-        <h2 className="text-2xl font-bold text-purple-800">{property.title || "Unnamed Property"}</h2>
-        <p className="text-green-600 font-semibold text-xl mt-2">₹{property.rent} / month</p>
-        <p className="text-gray-600 mt-2 italic font-bold">"{property.description}"</p>
+        <h2 className="text-2xl font-bold text-purple-800">
+          {property.title || "Unnamed Property"}
+        </h2>
+        <p className="text-green-600 font-semibold text-xl mt-2">
+          ₹{property.rent} / month
+        </p>
+        <p className="text-gray-600 mt-2 italic font-bold">
+          "{property.description}"
+        </p>
 
         <div className="mt-4 text-sm space-y-1">
-          <p>📍 <b>Location:</b> {property.location}</p>
-          <p>💰 <b>Price:</b> ₹{property.rent || "Not specified"}</p>
-          <p>🛏️ <b>Bedrooms:</b> {property.bedroom || "N/A"}</p>
-          <p>🛁 <b>Bathrooms:</b> {property.bathroom || "N/A"}</p>
+          <p>
+            📍 <b>Location:</b> {property.location}
+          </p>
+          <p>
+            💰 <b>Price:</b> ₹{property.rent || "Not specified"}
+          </p>
+          <p>
+            🛏️ <b>Bedrooms:</b> {property.bedroom || "N/A"}
+          </p>
+          <p>
+            🛁 <b>Bathrooms:</b> {property.bathroom || "N/A"}
+          </p>
         </div>
 
         <div className="mt-6">
           <h3 className="font-semibold">Send Inquiry</h3>
           <textarea
             placeholder="Message to owner..."
+            value={inquiryMessage}
+            onChange={(e) => setInquiryMessage(e.target.value)}
             className="w-full border mt-2 p-2 rounded"
           />
-          <button className="bg-purple-600 text-white mt-3 px-4 py-2 rounded hover:bg-purple-700">
+          <button
+            onClick={handleSendInquiry}
+            className="bg-purple-600 text-white mt-3 px-4 py-2 rounded hover:bg-purple-700"
+          >
             Send Inquiry
           </button>
         </div>

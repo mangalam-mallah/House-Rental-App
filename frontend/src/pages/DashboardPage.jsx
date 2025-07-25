@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { fetchOwnerProperties } from "../services/propertyService";
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [propertyCount, setPropertyCount] = useState(null);
@@ -79,6 +79,13 @@ const Dashboard = () => {
                 >
                   🏘️ View My Properties
                 </Link>
+
+                <Link
+                  to="/owner/inbox"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg shadow text-center"
+                >
+                  📩 View Inbox
+                </Link>
               </div>
             </div>
           ) : (
@@ -104,4 +111,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;
