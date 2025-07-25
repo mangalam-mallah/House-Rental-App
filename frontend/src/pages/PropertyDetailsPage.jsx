@@ -1,43 +1,39 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getPropertyById } from "../services/propertyService";
 
 const PropertyDetailsPage = () => {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
 
   useEffect(() => {
-    const fetchProperty = async () => {
-      try {
-        const res = await axios.get(`http://localhost:5000/property/${id}`);
-        setProperty(res.data.property);
-      } catch (err) {
-        console.error("Failed to load property", err.message);
-      }
-    };
-
-    fetchProperty();
+    getPropertyById(id).then(setProperty).catch((err) => {
+      console.error('Failed to fetch property:', err);
+    });
   }, [id]);
 
   if (!property) return <p className="text-center mt-10">Loading...</p>;
 
   return (
     <div className="max-w-3xl mx-auto mt-10">
-      <img
-        src={`http://localhost:5000/${property.image}`}
-        alt={property.name}
-        className="w-full h-80 object-cover rounded"
-      />
+      <div className="aspect-[4/3] w-full bg-gray-100 rounded overflow-hidden">
+        <img
+          src={property.image}
+          alt={property.name}
+          className="w-full object-contain"
+        />
+      </div>
+
       <div className="p-4 border rounded mt-4">
-        <h2 className="text-2xl font-bold text-purple-800">{property.name || "Unnamed Property"}</h2>
-        <p className="text-green-600 font-semibold text-xl mt-2">₹ "{property.price}" / month</p>
-        <p className="text-gray-600 mt-2 italic">"{property.description}"</p>
+        <h2 className="text-2xl font-bold text-purple-800">{property.title || "Unnamed Property"}</h2>
+        <p className="text-green-600 font-semibold text-xl mt-2">₹{property.rent} / month</p>
+        <p className="text-gray-600 mt-2 italic font-bold">"{property.description}"</p>
 
         <div className="mt-4 text-sm space-y-1">
           <p>📍 <b>Location:</b> {property.location}</p>
-          <p>💰 <b>Price:</b> ₹{property.price || "Not specified"}</p>
-          <p>🛏️ <b>Bedrooms:</b> {property.bedrooms || "N/A"}</p>
-          <p>🛁 <b>Bathrooms:</b> {property.bathrooms || "N/A"}</p>
+          <p>💰 <b>Price:</b> ₹{property.rent || "Not specified"}</p>
+          <p>🛏️ <b>Bedrooms:</b> {property.bedroom || "N/A"}</p>
+          <p>🛁 <b>Bathrooms:</b> {property.bathroom || "N/A"}</p>
         </div>
 
         <div className="mt-6">

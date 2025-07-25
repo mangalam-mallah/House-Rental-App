@@ -42,13 +42,13 @@ const MyPropertiesPage = () => {
         {properties.map((p) => (
           <div key={p._id} className="relative border rounded shadow p-2">
             <img
-              src={`http://localhost:5000/${p.image}`}
+              src={p.image}
               alt={p.name}
               className="h-48 w-full object-cover rounded"
             />
             <h3 className="text-lg font-semibold mt-2">{p.name}</h3>
             <p className="text-gray-600">{p.location}</p>
-            <p className="text-green-600 font-bold">₹{p.price}</p>
+            <p className="text-green-600 font-bold">₹{p.rent}</p>
 
             <div className="mt-3 flex justify-between">
               <Link to={`/property/${p._id}`}>
