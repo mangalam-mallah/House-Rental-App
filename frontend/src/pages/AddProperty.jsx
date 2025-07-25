@@ -8,6 +8,8 @@ const AddProperty = () => {
     location: "",
     rent: "",
     description: "",
+    bedroom: "",
+    bathroom: "",
     image: null,
   });
 
@@ -33,14 +35,16 @@ const AddProperty = () => {
       data.append("location", formData.location);
       data.append("rent", formData.rent);
       data.append("description", formData.description);
+      data.append("bedroom", formData.bedroom);
+      data.append("bathroom", formData.bathroom);
       if (formData.image) {
         data.append("image", formData.image);
       }
 
-      await createProperty(data)
+      await createProperty(data);
 
       alert("✅ Property added successfully!");
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       console.error(err);
       alert("❌ Failed to add property");
@@ -57,6 +61,7 @@ const AddProperty = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Property Title */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Property Title
@@ -72,6 +77,7 @@ const AddProperty = () => {
             />
           </div>
 
+          {/* Location */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Location
@@ -87,6 +93,7 @@ const AddProperty = () => {
             />
           </div>
 
+          {/* Rent */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Rent (₹)
@@ -102,6 +109,39 @@ const AddProperty = () => {
             />
           </div>
 
+          {/* Bedroom */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Bedrooms
+            </label>
+            <input
+              type="number"
+              name="bedroom"
+              value={formData.bedroom}
+              onChange={handleChange}
+              required
+              placeholder="e.g. 2"
+              className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-purple-500 focus:outline-none shadow-sm"
+            />
+          </div>
+
+          {/* Bathroom */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Bathrooms
+            </label>
+            <input
+              type="number"
+              name="bathroom"
+              value={formData.bathroom}
+              onChange={handleChange}
+              required
+              placeholder="e.g. 1"
+              className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-purple-500 focus:outline-none shadow-sm"
+            />
+          </div>
+
+          {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Description
@@ -117,6 +157,7 @@ const AddProperty = () => {
             />
           </div>
 
+          {/* Upload Image */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Upload Image
@@ -129,6 +170,7 @@ const AddProperty = () => {
             />
           </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}

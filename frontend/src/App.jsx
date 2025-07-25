@@ -15,7 +15,8 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
 import PropertyDetailsPage from './pages/PropertyDetailsPage.jsx';
 import PropertyListPage from './pages/PropertyListing.jsx';
-import AddProperty from './pages/AddProperty.jsx'; // ✅ AddProperty Import
+import AddProperty from './pages/AddProperty.jsx';
+import MyPropertiesPage from './pages/MyPropertiesPage.jsx'; // ✅ Added
 
 function App() {
   return (
@@ -40,6 +41,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AddProperty />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-properties" // ✅ NEW route
+            element={
+              <ProtectedRoute>
+                <MyPropertiesPage />
               </ProtectedRoute>
             }
           />
