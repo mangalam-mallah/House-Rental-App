@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { fetchOwnerProperties } from "../services/propertyService";
 
-const ProfilePage = () => {
+const Dashboard = () => {
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [propertyCount, setPropertyCount] = useState(null);
 
@@ -67,8 +69,8 @@ const ProfilePage = () => {
               </p>
 
               <button
-                onClick={() => console.log("Redirect to Add Property Form")}
-                className="mt-4 px-6 py-2 bg-indigo-600 text-white rounded-full shadow hover:bg-indigo-700 transition duration-300"
+                onClick={() => navigate("/add-property")}
+                className="mt-4 px-6 py-2 bg-indigo-600 text-white rounded-full shadow hover:bg-indigo-700 hover:scale-105 hover:ring-2 hover:ring-indigo-300 transition duration-300 transform"
               >
                 + Add Property
               </button>
@@ -96,4 +98,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default Dashboard;

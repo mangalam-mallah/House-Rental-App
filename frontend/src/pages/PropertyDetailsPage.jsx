@@ -1,67 +1,106 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPropertyById } from '../services/propertyService';
+
+const mockProperties = [
+  {
+    _id: "1",
+    name: "Elegant Urban Apartments",
+    location: "Mumbai",
+    description: "A luxurious residency in the heart of Mumbai.",
+    price: "₹45,000",
+    bedrooms: 3,
+    bathrooms: 2,
+    image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    _id: "2",
+    name: "Greenview Villa",
+    location: "Bangalore",
+    description: "A beautiful villa with a view of nature.",
+    price: "₹60,000",
+    bedrooms: 4,
+    bathrooms: 3,
+    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    _id: "3",
+    name: "Ocean Breeze Apartments",
+    location: "Goa",
+    description: "Modern apartments near the ocean with stunning views.",
+    price: "₹35,000",
+    bedrooms: 2,
+    bathrooms: 2,
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    _id: "4",
+    name: "Palm Heights",
+    location: "Chennai",
+    description: "Spacious and cozy home perfect for families.",
+    price: "₹38,000",
+    bedrooms: 3,
+    bathrooms: 2,
+    image: "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    _id: "5",
+    name: "Maple Residency",
+    location: "Delhi",
+    description: "Elegant living spaces in a prime location.",
+    price: "₹50,000",
+    bedrooms: 4,
+    bathrooms: 3,
+    image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    _id: "6",
+    name: "Hilltop Mansion",
+    location: "Manali",
+    description: "A peaceful mansion on a hilltop with breathtaking views.",
+    price: "₹75,000",
+    bedrooms: 5,
+    bathrooms: 4,
+    image: "https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=800&q=80",
+  },
+];
 
 const PropertyDetailsPage = () => {
   const { id } = useParams();
-  const [property, setProperty] = useState(null);
-
-  useEffect(() => {
-    getPropertyById(id).then(setProperty).catch((err) => {
-      console.error('Failed to fetch property:', err);
-    });
-  }, [id]);
+  const property = mockProperties.find((p) => p._id === id);
 
   if (!property) {
-    return (
-      <p className="text-center mt-10 text-xl text-gray-700">
-        Loading property details...
-      </p>
-    );
+    return <div className="text-center text-gray-600 p-4">Property not found</div>;
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-        <img
-          src={
-            property.image?.startsWith('http')
-              ? property.image
-              : 'https://dummyimage.com/300x200/cccccc/000000&text=No+Image'
-          }
-          alt={property.name || 'Property Image'}
-          className="w-full h-96 object-cover"
-        />
+    <div className="max-w-5xl mx-auto px-4 py-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <img
+            src={property.image}
+            alt={property.name}
+            className="rounded-xl w-full h-80 sm:h-96 object-cover shadow-lg"
+          />
+        </div>
 
-        <div className="p-6 space-y-4">
-          <h2 className="text-3xl font-bold text-indigo-700">
-            {property.title || 'Unnamed Property'}
-          </h2>
-          <p className="text-gray-600 text-lg">
-            {property.description || 'No description available.'}
-          </p>
+        <div>
+          <h1 className="text-3xl font-bold text-indigo-700 mb-2">{property.name}</h1>
+          <p className="text-gray-600 text-lg mb-1">📍 {property.location}</p>
+          <p className="text-green-600 font-semibold text-xl mb-4">{property.price} / month</p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-800">
-            <p>
-              <span className="font-semibold">📍 Location:</span>{' '}
-              {property.location || 'Not specified'}
-            </p>
-            <p>
-              <span className="font-semibold">💰 Price:</span> ₹
-              {property.rent || 'Not specified'}
-            </p>
-            <p>
-              <span className="font-semibold">🛏️ Bedrooms:</span>{' '}
-              {property.bedroom || 'N/A'}
-            </p>
-            <p>
-              <span className="font-semibold">🛁 Bathrooms:</span>{' '}
-              {property.bathroom || 'N/A'}
-            </p>
+          <p className="text-gray-700 mb-4">{property.description}</p>
+
+          <div className="flex flex-wrap gap-4 mb-6 text-sm text-gray-600">
+            <span className="bg-gray-100 px-3 py-1 rounded-md">🛏️ {property.bedrooms} Bedrooms</span>
+            <span className="bg-gray-100 px-3 py-1 rounded-md">🛁 {property.bathrooms} Bathrooms</span>
           </div>
 
-          <button className="mt-6 w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md transition duration-300">
-            Contact Owner
+          <textarea
+            className="w-full border border-gray-300 rounded-lg p-3 mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            rows="4"
+            placeholder="Send a message to the owner..."
+          ></textarea>
+          <button className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+            Send Inquiry
           </button>
         </div>
       </div>
