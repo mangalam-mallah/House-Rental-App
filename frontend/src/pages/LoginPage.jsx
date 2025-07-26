@@ -31,7 +31,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-200 px-4">
+<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 px-4">
       <div className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md border border-pink-300">
         <h2 className="text-4xl font-extrabold mb-6 text-center text-pink-600 tracking-tight">
           LogIn to Rentify 🏡
