@@ -1,4 +1,4 @@
-# 🏠 House Rental App (Full Stack)
+# 🏠 House Rental App
 
 A complete full-stack House Rental Web App built with **React**, **Node.js**, **Express**, and **MongoDB**. The app supports multi-role access for **Owners** and **Renters**, with secure **JWT authentication**, **property listings**, **inquiries**, and real-time UI updates.
 
