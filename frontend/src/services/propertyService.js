@@ -1,6 +1,5 @@
 import axiosInstance from './axiosInstance';
 
-// ✅ Public: Get all properties
 export const getAllProperties = async () => {
   try {
     const res = await axiosInstance.get("/property");
@@ -11,7 +10,6 @@ export const getAllProperties = async () => {
   }
 };
 
-// ✅ Public: Get property by ID
 export const getPropertyById = async (id) => {
   try {
     const res = await axiosInstance.get(`/property/${id}`);
@@ -22,7 +20,6 @@ export const getPropertyById = async (id) => {
   }
 };
 
-// ✅ Private: Get properties added by the logged-in owner
 export const fetchOwnerProperties = async () => {
   try {
     const res = await axiosInstance.get("/property/my-properties");
@@ -33,7 +30,6 @@ export const fetchOwnerProperties = async () => {
   }
 };
 
-// ✅ Private: Create new property (multipart/form-data)
 export const createProperty = async (formData) => {
   try {
     const res = await axiosInstance.post("/property", formData, {
@@ -46,7 +42,6 @@ export const createProperty = async (formData) => {
   }
 };
 
-// ✅ Private: Update property (multipart/form-data)
 export const updateProperty = async (id, formData) => {
   try {
     const res = await axiosInstance.put(`/property/${id}`, formData, {
@@ -59,7 +54,6 @@ export const updateProperty = async (id, formData) => {
   }
 };
 
-// ✅ Private: Delete property by ID
 export const deleteProperty = async (id) => {
   try {
     const res = await axiosInstance.delete(`/property/${id}`);

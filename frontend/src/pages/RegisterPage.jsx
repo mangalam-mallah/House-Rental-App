@@ -43,7 +43,6 @@ const RegisterPage = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Name */}
           <div className="relative">
             <input
               id="name"
@@ -64,7 +63,6 @@ const RegisterPage = () => {
             </label>
           </div>
 
-          {/* Email */}
           <div className="relative">
             <input
               id="email"
@@ -85,7 +83,6 @@ const RegisterPage = () => {
             </label>
           </div>
 
-          {/* Password */}
           <div className="relative">
             <input
               id="password"
@@ -112,7 +109,6 @@ const RegisterPage = () => {
             </div>
           </div>
 
-          {/* Role Selection */}
           <div className="relative">
             <select
               value={userData.role}

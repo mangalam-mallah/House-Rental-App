@@ -8,7 +8,6 @@ const Navbar = () => {
     <nav className="bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-xl sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          {/* Enhanced Logo */}
           <div className="flex items-center space-x-3">
             <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-2.5 rounded-xl shadow-lg transform hover:rotate-12 transition-transform duration-300">
               <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -23,9 +22,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Navigation Links */}
           <div className="flex items-center space-x-8">
-            {/* Optional Navigation Links */}
             <div className="hidden md:flex items-center space-x-6">
               <Link 
                 to="/" 
@@ -34,30 +31,11 @@ const Navbar = () => {
                 Home
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
               </Link>
-              {/* <Link 
-                to="/properties" 
-                className="text-gray-700 hover:text-indigo-600 font-medium transition-colors duration-200 relative group"
-              >
-                Properties
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
-              </Link> */}
             </div>
 
-            {/* Auth Section */}
             <div className="flex items-center space-x-4">
               {user ? (
                 <>
-                  {/* User Avatar */}
-                  {/* <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
-                      <span className="text-white text-sm font-semibold">
-                        {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
-                      </span>
-                    </div>
-                    <span className="hidden sm:block text-gray-700 font-medium">
-                      Welcome, {user.name || 'User'}
-                    </span>
-                  </div> */}
 
                   <Link
                     to="/dashboard"
@@ -109,7 +87,6 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Mobile Menu Button */}
             <div className="md:hidden">
               <button className="text-gray-700 hover:text-indigo-600 p-2 rounded-lg hover:bg-indigo-50 transition-all duration-200">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

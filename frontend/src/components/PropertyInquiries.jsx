@@ -1,5 +1,4 @@
-// src/components/PropertyInquiries.jsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const PropertyInquiries = ({ propertyId }) => {
@@ -16,7 +15,7 @@ const PropertyInquiries = ({ propertyId }) => {
   };
 
   const toggleInquiries = () => {
-    if (!show) fetchInquiries(); // fetch only when showing
+    if (!show) fetchInquiries(); 
     setShow(!show);
   };
 

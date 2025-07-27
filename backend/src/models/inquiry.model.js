@@ -17,6 +17,11 @@ const inquirySchema = new Schema(
         message : {
             type : String,
             required : true
+        },
+        status : {
+            type : String,
+            enum : ["pending", "approved", "rejected"],
+            default : "pending"
         }
     },
     {

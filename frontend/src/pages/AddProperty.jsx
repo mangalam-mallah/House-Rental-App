@@ -61,7 +61,6 @@ const AddProperty = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Property Title */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Property Title
@@ -77,7 +76,6 @@ const AddProperty = () => {
             />
           </div>
 
-          {/* Location */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Location
@@ -93,7 +91,6 @@ const AddProperty = () => {
             />
           </div>
 
-          {/* Rent */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Rent (₹)
@@ -109,7 +106,6 @@ const AddProperty = () => {
             />
           </div>
 
-          {/* Bedroom */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Bedrooms
@@ -125,7 +121,6 @@ const AddProperty = () => {
             />
           </div>
 
-          {/* Bathroom */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Bathrooms
@@ -141,7 +136,6 @@ const AddProperty = () => {
             />
           </div>
 
-          {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Description
@@ -157,7 +151,6 @@ const AddProperty = () => {
             />
           </div>
 
-          {/* Upload Image */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Upload Image
@@ -170,7 +163,6 @@ const AddProperty = () => {
             />
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}

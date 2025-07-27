@@ -1,5 +1,6 @@
 import Inquiry from "../models/inquiry.model.js";
 import Property from "../models/property.model.js";
+import mongoose from "mongoose";
 
 const createInquiry = async (req, res) => {
   try {
@@ -18,9 +19,11 @@ const createInquiry = async (req, res) => {
         .json({ message: "Property ID and message are required" });
     }
 
+    const objectPropertyId = new mongoose.Types.ObjectId(propertyId);
+
     const inquiry = await Inquiry.create({
       renterId,
-      propertyId,
+      propertyId: objectPropertyId, 
       message,
       status: "pending",
     });
@@ -35,16 +38,25 @@ const createInquiry = async (req, res) => {
   }
 };
 
-const getInquiryForProperty = async (req, res) => {
+ const getInquiriesForOwner = async (req, res) => {
   try {
-    const { propertyId } = req.params;
-    const inquries = await Inquiry.find({ propertyId });
+    const ownerId = req.user.id;
+    // console.log("Owner ID:", ownerId);
+    const properties = await Property.find({ ownerId: ownerId }).select("_id title");
+    // console.log("Properties owned by this owner:", properties);
+    const propertyIds = properties.map((prop) => prop._id);
+    // console.log("📦 Property IDs extracted:", propertyIds);
+    const inquiries = await Inquiry.find({ propertyId: { $in: propertyIds } })
+      .populate("propertyId", "title")
+      .populate("renterId", "name email")
+      .sort({ timestamp: -1 });
+    // console.log("📬 Inquiries fetched for owner's properties:", inquiries);
     res.status(200).json({
-      message: "Inquiry fetched",
-      inquries,
+      message: "Inquiries fetched",
+      inquiries,
     });
   } catch (error) {
-    console.log("Error in get Inquiry controller: ", error);
+    console.error("❌ Error in getInquiriesForOwner:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -107,4 +119,4 @@ const rejectInquiry = async (req, res) => {
   }
 };
 
-export { createInquiry, getInquiryForProperty, approveInquiry, rejectInquiry };
+export { createInquiry, getInquiriesForOwner, approveInquiry, rejectInquiry };
